@@ -13,13 +13,30 @@
     },
     "version": "v1"
   },
+  "servers": [
+      {
+        "url": "https://api.worldbank.org/data360",
+        "description": "Production server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Data360",
+        "description": "Endpoints for data retrieval."
+      },
+      {
+        "name": "Search",
+        "description": "Endpoints for metadata and search functionality."
+      }
+    ],
   "paths": {
     "/data360/data": {
       "get": {
+        "summary": "Retrieve data based on provided filters",
+        "description": "Retrieves dataset or indicators data based on a range of query filters.",
         "tags": [
           "Data360"
         ],
-        "description": "Get Data",
         "parameters": [
           {
             "name": "DATABASE_ID",
