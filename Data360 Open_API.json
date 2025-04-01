@@ -15,7 +15,7 @@
   },
   "servers": [
       {
-        "url": "https://api.worldbank.org/data360",
+        "url": "https://data360api.worldbank.org",
         "description": "Production server"
       }
     ],
@@ -38,313 +38,41 @@
           "Data360"
         ],
         "parameters": [
-          {
-            "name": "DATABASE_ID",
-            "in": "query",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "top",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1000
-            }
-          },
-          {
-            "name": "skip",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "INDICATOR",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "REF_AREA",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "SEX",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "AGE",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "URBANISATION",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "COMP_BREAKDOWN_1",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "COMP_BREAKDOWN_2",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "COMP_BREAKDOWN_3",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "TIME_PERIOD",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "FREQ",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "UNIT_MEASURE",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "UNIT_TYPE",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "UNIT_MULT",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "timePeriodFrom",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "timePeriodTo",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "BOND_TYPE",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "TENOR_BUCKET",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "ISSUER_TYPE",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "ISS_NAME",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "ISIN",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "TENOR",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "OUTSTANDING",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "DEAL_SIZE",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "METRIC",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "CURRENCY",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "DATE_ISS",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "DATE_MAT",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "isLatestData",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "format",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "default": "json"
-            }
-          },
-          {
-            "name": "select",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          }
-        ],
+          { "$ref": "#/components/parameters/databaseIdQuery" },
+          { "$ref": "#/components/parameters/topQuery" },
+          { "$ref": "#/components/parameters/skipQuery" },
+          { "$ref": "#/components/parameters/indicatorQuery" },
+          { "$ref": "#/components/parameters/refAreaQuery" },
+          { "$ref": "#/components/parameters/sexQuery" },
+          { "$ref": "#/components/parameters/ageQuery" },
+          { "$ref": "#/components/parameters/urbanisationQuery" },
+          { "$ref": "#/components/parameters/compBreakdown1Query" },
+          { "$ref": "#/components/parameters/compBreakdown2Query" },
+          { "$ref": "#/components/parameters/compBreakdown3Query" },
+          { "$ref": "#/components/parameters/timePeriodQuery" },
+          { "$ref": "#/components/parameters/freqQuery" },
+          { "$ref": "#/components/parameters/unitMeasureQuery" },
+          { "$ref": "#/components/parameters/unitTypeQuery" },
+          { "$ref": "#/components/parameters/unitMultQuery" },
+          { "$ref": "#/components/parameters/timePeriodFromQuery" },
+          { "$ref": "#/components/parameters/timePeriodToQuery" },
+          { "$ref": "#/components/parameters/bondTypeQuery" },
+          { "$ref": "#/components/parameters/tenorBucketQuery" },
+          { "$ref": "#/components/parameters/issuerTypeQuery" },
+          { "$ref": "#/components/parameters/issNameQuery" },
+          { "$ref": "#/components/parameters/isinQuery" },
+          { "$ref": "#/components/parameters/tenorQuery" },
+          { "$ref": "#/components/parameters/outstandingQuery" },
+          { "$ref": "#/components/parameters/dealSizeQuery" },
+          { "$ref": "#/components/parameters/metricQuery" },
+          { "$ref": "#/components/parameters/currencyQuery" },
+          { "$ref": "#/components/parameters/dateIssQuery" },
+          { "$ref": "#/components/parameters/dateMatQuery" },
+          { "$ref": "#/components/parameters/isLatestDataQuery" },
+          { "$ref": "#/components/parameters/formatQuery" },
+          { "$ref": "#/components/parameters/selectQuery" },
+          { "$ref": "#/components/parameters/filterQuery" }
+        ], 
         "responses": {
           "200": {
             "description": "Success",
@@ -613,6 +341,304 @@
     }
   },
   "components": {
+    "parameters": {
+      "databaseIdQuery": {
+        "name": "DATABASE_ID",
+        "in": "query",
+        "description": "Unique identifier for the database.",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "WB_WDI"
+      },
+      "topQuery": {
+        "name": "top",
+        "in": "query",
+        "description": "Maximum number of records to return.",
+        "required": false,
+        "schema": { "type": "integer", "format": "int32", "default": 1000 },
+        "example": 20
+      },
+      "skipQuery": {
+        "name": "skip",
+        "in": "query",
+        "description": "Number of records to skip.",
+        "required": false,
+        "schema": { "type": "integer", "format": "int32", "default": 0 },
+        "example": 0
+      },
+      "indicatorQuery": {
+        "name": "INDICATOR",
+        "in": "query",
+        "description": "Indicator ID.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": "WB_WDI_SP_POP_TOTL"
+      },
+      "refAreaQuery": {
+        "name": "REF_AREA",
+        "in": "query",
+        "description": "Reference area code (e.g., country code).",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "sexQuery": {
+        "name": "SEX",
+        "in": "query",
+        "description": "Sex of the subjects, if applicable.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "ageQuery": {
+        "name": "AGE",
+        "in": "query",
+        "description": "Age group filter.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "urbanisationQuery": {
+        "name": "URBANISATION",
+        "in": "query",
+        "description": "Urbanisation filter.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "compBreakdown1Query": {
+        "name": "COMP_BREAKDOWN_1",
+        "in": "query",
+        "description": "Indicator specific dimension.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "compBreakdown2Query": {
+        "name": "COMP_BREAKDOWN_2",
+        "in": "query",
+        "description": "Indicator specific dimensionn.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "compBreakdown3Query": {
+        "name": "COMP_BREAKDOWN_3",
+        "in": "query",
+        "description": "Indicator specific dimensionn.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "timePeriodQuery": {
+        "name": "TIME_PERIOD",
+        "in": "query",
+        "description": "Time period for the data.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "freqQuery": {
+        "name": "FREQ",
+        "in": "query",
+        "description": "Frequency of the data.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "unitMeasureQuery": {
+        "name": "UNIT_MEASURE",
+        "in": "query",
+        "description": "Unit of measure for the data.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "unitTypeQuery": {
+        "name": "UNIT_TYPE",
+        "in": "query",
+        "description": "Type of unit (e.g., 'currency', 'percentage').",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "unitMultQuery": {
+        "name": "UNIT_MULT",
+        "in": "query",
+        "description": "Multiplier for the unit.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "timePeriodFromQuery": {
+        "name": "timePeriodFrom",
+        "in": "query",
+        "description": "Start of the time period range.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "timePeriodToQuery": {
+        "name": "timePeriodTo",
+        "in": "query",
+        "description": "End of the time period range.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "bondTypeQuery": {
+        "name": "BOND_TYPE",
+        "in": "query",
+        "description": "Type of bond, if applicable.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "tenorBucketQuery": {
+        "name": "TENOR_BUCKET",
+        "in": "query",
+        "description": "Bucket for the bond tenor.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "issuerTypeQuery": {
+        "name": "ISSUER_TYPE",
+        "in": "query",
+        "description": "Type of issuer.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "issNameQuery": {
+        "name": "ISS_NAME",
+        "in": "query",
+        "description": "Name of the issuer.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "isinQuery": {
+        "name": "ISIN",
+        "in": "query",
+        "description": "International Securities Identification Number.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "tenorQuery": {
+        "name": "TENOR",
+        "in": "query",
+        "description": "Tenor of the bond.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "outstandingQuery": {
+        "name": "OUTSTANDING",
+        "in": "query",
+        "description": "Outstanding value, if applicable.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "dealSizeQuery": {
+        "name": "DEAL_SIZE",
+        "in": "query",
+        "description": "Deal size for the bond issuance.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "metricQuery": {
+        "name": "METRIC",
+        "in": "query",
+        "description": "Metric to be used for the data.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "currencyQuery": {
+        "name": "CURRENCYy",
+        "in": "query",
+        "description": "Currency code (e.g., USD, EUR).",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "dateIssQuery": {
+        "name": "DATE_ISS",
+        "in": "query",
+        "description": "Issue date of the bond.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "dateMatQuery": {
+        "name": "DATE_MAT",
+        "in": "query",
+        "description": "Maturity date of the bond.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "isLatestDataQuery": {
+        "name": "isLatestData",
+        "in": "query",
+        "description": "Flag indicating whether to retrieve the latest data.",
+        "required": false,
+        "schema": { "type": "boolean", "default": false, "nullable": true },
+        "example": ""
+      },
+      "formatQuery": {
+        "name": "format",
+        "in": "query",
+        "description": "Response format, e.g., json.",
+        "required": false,
+        "schema": { "type": "string", "default": "json" },
+        "example": ""
+      },
+      "selectQuery": {
+        "name": "select",
+        "in": "query",
+        "description": "Fields to select in the response.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "filterQuery": {
+        "name": "filter",
+        "in": "query",
+        "description": "Filter criteria for the data.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": ""
+      },
+      "datasetIdQuery": {
+        "name": "datasetId",
+        "in": "query",
+        "description": "Unique identifier for the dataset.",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "dataset123"
+      },
+      "indicatorIdQuery": {
+        "name": "indicatorId",
+        "in": "query",
+        "description": "Unique identifier for the indicator.",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "indicator456"
+      },
+      "actionTypeQuery": {
+        "name": "type",
+        "in": "query",
+        "description": "Type of user action to filter by.",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "click"
+      }
+    },
     "schemas": {
       "Data360Request": {
         "type": "object",
