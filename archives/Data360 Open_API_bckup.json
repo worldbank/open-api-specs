@@ -1,0 +1,1096 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Data360.API",
+      "description": "This API provides users access to metadata and data files for datasets within the World Bank's Data360 Data.",
+      "contact": {
+        "name": "Data360 Data Support",
+        "email": "data@worldbank.org"
+      },
+      "license": {
+        "name": "Creative Commons 4.0 by Attribution",
+        "url": "https://creativecommons.org/licenses/by/4.0"
+      },
+      "version": "v1"
+    },
+    "servers": [
+      {
+        "url": "https://api.worldbank.org/data360",
+        "description": "Production server"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Data360",
+        "description": "Endpoints for data access, retrieval, and user actions."
+      },
+      {
+        "name": "Search",
+        "description": "Endpoints for metadata and vector search functionality."
+      }
+    ],
+    "paths": {
+      "/data360/data": {
+        "get": {
+          "summary": "Retrieve data based on provided filters",
+          "description": "Retrieves dataset data based on a range of query filters.",
+          "tags": [
+            "Data360"
+          ],
+          "parameters": [
+            { "$ref": "#/components/parameters/databaseIdQuery" },
+            { "$ref": "#/components/parameters/topQuery" },
+            { "$ref": "#/components/parameters/skipQuery" },
+            { "$ref": "#/components/parameters/indicatorQuery" },
+            { "$ref": "#/components/parameters/refAreaQuery" },
+            { "$ref": "#/components/parameters/sexQuery" },
+            { "$ref": "#/components/parameters/ageQuery" },
+            { "$ref": "#/components/parameters/urbanisationQuery" },
+            { "$ref": "#/components/parameters/compBreakdown1Query" },
+            { "$ref": "#/components/parameters/compBreakdown2Query" },
+            { "$ref": "#/components/parameters/compBreakdown3Query" },
+            { "$ref": "#/components/parameters/timePeriodQuery" },
+            { "$ref": "#/components/parameters/freqQuery" },
+            { "$ref": "#/components/parameters/unitMeasureQuery" },
+            { "$ref": "#/components/parameters/unitTypeQuery" },
+            { "$ref": "#/components/parameters/unitMultQuery" },
+            { "$ref": "#/components/parameters/timePeriodFromQuery" },
+            { "$ref": "#/components/parameters/timePeriodToQuery" },
+            { "$ref": "#/components/parameters/bondTypeQuery" },
+            { "$ref": "#/components/parameters/tenorBucketQuery" },
+            { "$ref": "#/components/parameters/issuerTypeQuery" },
+            { "$ref": "#/components/parameters/issNameQuery" },
+            { "$ref": "#/components/parameters/isinQuery" },
+            { "$ref": "#/components/parameters/tenorQuery" },
+            { "$ref": "#/components/parameters/outstandingQuery" },
+            { "$ref": "#/components/parameters/dealSizeQuery" },
+            { "$ref": "#/components/parameters/metricQuery" },
+            { "$ref": "#/components/parameters/currencyQuery" },
+            { "$ref": "#/components/parameters/dateIssQuery" },
+            { "$ref": "#/components/parameters/dateMatQuery" },
+            { "$ref": "#/components/parameters/isLatestDataQuery" },
+            { "$ref": "#/components/parameters/formatQuery" },
+            { "$ref": "#/components/parameters/selectQuery" },
+            { "$ref": "#/components/parameters/filterQuery" }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful data retrieval",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" },
+                  "examples": {
+                    "example": {
+                      "value": {
+                        "status": "success",
+                        "data": []
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request - Invalid parameters",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            },
+            "500": {
+              "description": "Server Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        },
+        "post": {
+          "summary": "Submit data query request",
+          "description": "Submits a data query using a request body. The payload should adhere to the Data360Request schema.",
+          "tags": [
+            "Data360"
+          ],
+          "requestBody": {
+            "description": "Data query parameters in JSON format",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Data360Request" },
+                "examples": {
+                  "default": {
+                    "value": {
+                      "databaseId": "exampleDatabase",
+                      "indicator": "GDP",
+                      "top": 1000,
+                      "skip": 0,
+                      "isLatestData": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful query submission",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request - Invalid input",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            },
+            "500": {
+              "description": "Server Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      },
+      "/data360/disaggregation": {
+        "get": {
+          "summary": "Retrieve disaggregation data",
+          "description": "Fetches disaggregation data for a given dataset and indicator.",
+          "tags": [
+            "Data360"
+          ],
+          "parameters": [
+            { "$ref": "#/components/parameters/datasetIdQuery" },
+            { "$ref": "#/components/parameters/indicatorIdQuery" }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful disaggregation data retrieval",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      },
+      "/data360/indicators": {
+        "get": {
+          "summary": "Retrieve available indicators",
+          "description": "Fetches indicators available for a specific dataset.",
+          "tags": [
+            "Data360"
+          ],
+          "parameters": [
+            { "$ref": "#/components/parameters/datasetIdQuery" }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful indicators retrieval",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      },
+      "/data360/saveuseraction": {
+        "post": {
+          "summary": "Save user action",
+          "description": "Records a user action related to dataset interactions.",
+          "tags": [
+            "Data360"
+          ],
+          "requestBody": {
+            "description": "User action details",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserAction" },
+                "examples": {
+                  "default": {
+                    "value": {
+                      "indicator": "GDP",
+                      "action": "click",
+                      "type": "detailView",
+                      "datasetId": "exampleDataset"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User action saved successfully",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      },
+      "/data360/getuseraction": {
+        "get": {
+          "summary": "Retrieve user actions",
+          "description": "Retrieves recorded user actions based on dataset and type filters.",
+          "tags": [
+            "Data360"
+          ],
+          "parameters": [
+            { "$ref": "#/components/parameters/datasetIdQuery" },
+            { "$ref": "#/components/parameters/indicatorQuery" },
+            { "$ref": "#/components/parameters/actionTypeQuery" }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful retrieval of user actions",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      },
+      "/data360/metadata": {
+        "post": {
+          "summary": "Retrieve metadata",
+          "description": "Fetches metadata for datasets based on the provided search query.",
+          "tags": [
+            "Search"
+          ],
+          "requestBody": {
+            "description": "Search query parameters for metadata",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SearchQuery" },
+                "examples": {
+                  "default": {
+                    "value": {
+                      "query": "education"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful metadata retrieval",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      },
+      "/data360/searchv3": {
+        "post": {
+          "summary": "Execute vector search",
+          "description": "Performs a vector search based on provided parameters.",
+          "tags": [
+            "Search"
+          ],
+          "requestBody": {
+            "description": "Vector search query parameters",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SearchQueryVector" },
+                "examples": {
+                  "default": {
+                    "value": {
+                      "search": "infrastructure",
+                      "top": 10,
+                      "skip": 0,
+                      "vectorQueries": [
+                        {
+                          "vector": [0.1, 0.2, 0.3],
+                          "fields": "description",
+                          "kind": "similarity",
+                          "k": 5,
+                          "weight": 1.0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful vector search",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Data360Response" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                }
+              }
+            }
+          },
+          "security": [
+            { "ApiKeyAuth": [] }
+          ]
+        }
+      }
+    },
+    "components": {
+      "parameters": {
+        "databaseIdQuery": {
+          "name": "databaseId",
+          "in": "query",
+          "description": "Unique identifier for the database.",
+          "required": true,
+          "schema": { "type": "string" },
+          "example": "worldBankDB"
+        },
+        "topQuery": {
+          "name": "top",
+          "in": "query",
+          "description": "Maximum number of records to return.",
+          "required": false,
+          "schema": { "type": "integer", "format": "int32", "default": 1000 },
+          "example": 1000
+        },
+        "skipQuery": {
+          "name": "skip",
+          "in": "query",
+          "description": "Number of records to skip.",
+          "required": false,
+          "schema": { "type": "integer", "format": "int32", "default": 0 },
+          "example": 0
+        },
+        "indicatorQuery": {
+          "name": "indicator",
+          "in": "query",
+          "description": "Indicator code for the dataset.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "GDP"
+        },
+        "refAreaQuery": {
+          "name": "refArea",
+          "in": "query",
+          "description": "Reference area code (e.g., country code).",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "USA"
+        },
+        "sexQuery": {
+          "name": "sex",
+          "in": "query",
+          "description": "Sex of the subjects, if applicable.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "all"
+        },
+        "ageQuery": {
+          "name": "age",
+          "in": "query",
+          "description": "Age group filter.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "18-25"
+        },
+        "urbanisationQuery": {
+          "name": "urbanisation",
+          "in": "query",
+          "description": "Urbanisation filter.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "urban"
+        },
+        "compBreakdown1Query": {
+          "name": "compBreakdown1",
+          "in": "query",
+          "description": "First level breakdown of composition.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "sector"
+        },
+        "compBreakdown2Query": {
+          "name": "compBreakdown2",
+          "in": "query",
+          "description": "Second level breakdown of composition.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "industry"
+        },
+        "compBreakdown3Query": {
+          "name": "compBreakdown3",
+          "in": "query",
+          "description": "Third level breakdown of composition.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "category"
+        },
+        "timePeriodQuery": {
+          "name": "timePeriod",
+          "in": "query",
+          "description": "Time period for the data (e.g., '2020' or '2020Q1').",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "2020"
+        },
+        "freqQuery": {
+          "name": "freq",
+          "in": "query",
+          "description": "Frequency of the data (e.g., 'annual', 'quarterly').",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "annual"
+        },
+        "unitMeasureQuery": {
+          "name": "unitMeasure",
+          "in": "query",
+          "description": "Unit of measure for the data.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "USD"
+        },
+        "unitTypeQuery": {
+          "name": "unitType",
+          "in": "query",
+          "description": "Type of unit (e.g., 'currency', 'percentage').",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "currency"
+        },
+        "unitMultQuery": {
+          "name": "unitMult",
+          "in": "query",
+          "description": "Multiplier for the unit.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "1000"
+        },
+        "timePeriodFromQuery": {
+          "name": "timePeriodFrom",
+          "in": "query",
+          "description": "Start of the time period range.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "2000"
+        },
+        "timePeriodToQuery": {
+          "name": "timePeriodTo",
+          "in": "query",
+          "description": "End of the time period range.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "2020"
+        },
+        "bondTypeQuery": {
+          "name": "bondType",
+          "in": "query",
+          "description": "Type of bond, if applicable.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "government"
+        },
+        "tenorBucketQuery": {
+          "name": "tenorBucket",
+          "in": "query",
+          "description": "Bucket for the bond tenor.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "short-term"
+        },
+        "issuerTypeQuery": {
+          "name": "issuerType",
+          "in": "query",
+          "description": "Type of issuer.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "public"
+        },
+        "issNameQuery": {
+          "name": "issName",
+          "in": "query",
+          "description": "Name of the issuer.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "World Bank"
+        },
+        "isinQuery": {
+          "name": "isin",
+          "in": "query",
+          "description": "International Securities Identification Number.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "US1234567890"
+        },
+        "tenorQuery": {
+          "name": "tenor",
+          "in": "query",
+          "description": "Tenor of the bond.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "10Y"
+        },
+        "outstandingQuery": {
+          "name": "outstanding",
+          "in": "query",
+          "description": "Outstanding value, if applicable.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "500M"
+        },
+        "dealSizeQuery": {
+          "name": "dealSize",
+          "in": "query",
+          "description": "Deal size for the bond issuance.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "1B"
+        },
+        "metricQuery": {
+          "name": "metric",
+          "in": "query",
+          "description": "Metric to be used for the data.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "value"
+        },
+        "currencyQuery": {
+          "name": "currency",
+          "in": "query",
+          "description": "Currency code (e.g., USD, EUR).",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "USD"
+        },
+        "dateIssQuery": {
+          "name": "dateIss",
+          "in": "query",
+          "description": "Issue date of the bond.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "2020-01-01"
+        },
+        "dateMatQuery": {
+          "name": "dateMat",
+          "in": "query",
+          "description": "Maturity date of the bond.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "2030-01-01"
+        },
+        "isLatestDataQuery": {
+          "name": "isLatestData",
+          "in": "query",
+          "description": "Flag indicating whether to retrieve the latest data.",
+          "required": false,
+          "schema": { "type": "boolean", "default": false },
+          "example": true
+        },
+        "formatQuery": {
+          "name": "format",
+          "in": "query",
+          "description": "Response format, e.g., json.",
+          "required": false,
+          "schema": { "type": "string", "default": "json" },
+          "example": "json"
+        },
+        "selectQuery": {
+          "name": "select",
+          "in": "query",
+          "description": "Fields to select in the response.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "name,description"
+        },
+        "filterQuery": {
+          "name": "filter",
+          "in": "query",
+          "description": "Filter criteria for the data.",
+          "required": false,
+          "schema": { "type": "string" },
+          "example": "country eq 'USA'"
+        },
+        "datasetIdQuery": {
+          "name": "datasetId",
+          "in": "query",
+          "description": "Unique identifier for the dataset.",
+          "required": true,
+          "schema": { "type": "string" },
+          "example": "dataset123"
+        },
+        "indicatorIdQuery": {
+          "name": "indicatorId",
+          "in": "query",
+          "description": "Unique identifier for the indicator.",
+          "required": true,
+          "schema": { "type": "string" },
+          "example": "indicator456"
+        },
+        "actionTypeQuery": {
+          "name": "type",
+          "in": "query",
+          "description": "Type of user action to filter by.",
+          "required": true,
+          "schema": { "type": "string" },
+          "example": "click"
+        }
+      },
+      "schemas": {
+        "Data360Request": {
+          "type": "object",
+          "properties": {
+            "databaseId": {
+              "type": "string",
+              "nullable": true,
+              "example": "worldBankDB"
+            },
+            "indicator": {
+              "type": "string",
+              "nullable": true,
+              "example": "GDP"
+            },
+            "refArea": {
+              "type": "string",
+              "nullable": true,
+              "example": "USA"
+            },
+            "sex": {
+              "type": "string",
+              "nullable": true,
+              "example": "all"
+            },
+            "age": {
+              "type": "string",
+              "nullable": true,
+              "example": "18-25"
+            },
+            "urbanisation": {
+              "type": "string",
+              "nullable": true,
+              "example": "urban"
+            },
+            "compBreakdown1": {
+              "type": "string",
+              "nullable": true,
+              "example": "sector"
+            },
+            "compBreakdown2": {
+              "type": "string",
+              "nullable": true,
+              "example": "industry"
+            },
+            "compBreakdown3": {
+              "type": "string",
+              "nullable": true,
+              "example": "category"
+            },
+            "timePeriod": {
+              "type": "string",
+              "nullable": true,
+              "example": "2020"
+            },
+            "freq": {
+              "type": "string",
+              "nullable": true,
+              "example": "annual"
+            },
+            "unitMeasure": {
+              "type": "string",
+              "nullable": true,
+              "example": "USD"
+            },
+            "unitType": {
+              "type": "string",
+              "nullable": true,
+              "example": "currency"
+            },
+            "unitMult": {
+              "type": "string",
+              "nullable": true,
+              "example": "1000"
+            },
+            "timePeriodFrom": {
+              "type": "string",
+              "nullable": true,
+              "example": "2000"
+            },
+            "timePeriodTo": {
+              "type": "string",
+              "nullable": true,
+              "example": "2020"
+            },
+            "isLatestData": {
+              "type": "boolean",
+              "example": true
+            },
+            "top": {
+              "type": "integer",
+              "format": "int32",
+              "example": 1000
+            },
+            "skip": {
+              "type": "integer",
+              "format": "int32",
+              "example": 0
+            },
+            "format": {
+              "type": "string",
+              "nullable": true,
+              "example": "json"
+            },
+            "bondType": {
+              "type": "string",
+              "nullable": true,
+              "example": "government"
+            },
+            "dateIss": {
+              "type": "string",
+              "nullable": true,
+              "example": "2020-01-01"
+            },
+            "dateMat": {
+              "type": "string",
+              "nullable": true,
+              "example": "2030-01-01"
+            },
+            "tenorBucket": {
+              "type": "string",
+              "nullable": true,
+              "example": "short-term"
+            },
+            "issuerType": {
+              "type": "string",
+              "nullable": true,
+              "example": "public"
+            },
+            "issName": {
+              "type": "string",
+              "nullable": true,
+              "example": "World Bank"
+            },
+            "isin": {
+              "type": "string",
+              "nullable": true,
+              "example": "US1234567890"
+            },
+            "tenor": {
+              "type": "string",
+              "nullable": true,
+              "example": "10Y"
+            },
+            "outstanding": {
+              "type": "string",
+              "nullable": true,
+              "example": "500M"
+            },
+            "dealSize": {
+              "type": "string",
+              "nullable": true,
+              "example": "1B"
+            },
+            "metric": {
+              "type": "string",
+              "nullable": true,
+              "example": "value"
+            },
+            "currency": {
+              "type": "string",
+              "nullable": true,
+              "example": "USD"
+            },
+            "select": {
+              "type": "string",
+              "nullable": true,
+              "example": "name,description"
+            },
+            "filter": {
+              "type": "string",
+              "nullable": true,
+              "example": "country eq 'USA'"
+            }
+          },
+          "additionalProperties": false
+        },
+        "SearchQuery": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "nullable": true,
+              "example": "education"
+            }
+          },
+          "additionalProperties": false
+        },
+        "SearchQueryVector": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "boolean",
+              "nullable": true,
+              "example": false
+            },
+            "facets": {
+              "type": "array",
+              "items": { "type": "string" },
+              "nullable": true,
+              "example": ["sector", "industry"]
+            },
+            "filter": {
+              "type": "string",
+              "nullable": true,
+              "example": "country eq 'USA'"
+            },
+            "orderBy": {
+              "type": "string",
+              "nullable": true,
+              "example": "name"
+            },
+            "select": {
+              "type": "string",
+              "nullable": true,
+              "example": "name,description"
+            },
+            "searchFields": {
+              "type": "string",
+              "nullable": true,
+              "example": "name,description"
+            },
+            "search": {
+              "type": "string",
+              "nullable": true,
+              "example": "infrastructure"
+            },
+            "top": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true,
+              "example": 10
+            },
+            "skip": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true,
+              "example": 0
+            },
+            "vectorFilterModeSearch": {
+              "type": "string",
+              "nullable": true,
+              "example": "mode1"
+            },
+            "vectorQueries": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/VectorQueryModel" },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Threshold": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "nullable": true,
+              "example": "min"
+            },
+            "value": {
+              "type": "number",
+              "format": "double",
+              "nullable": true,
+              "example": 0.5
+            }
+          },
+          "additionalProperties": false
+        },
+        "UserAction": {
+          "type": "object",
+          "properties": {
+            "indicator": {
+              "type": "string",
+              "nullable": true,
+              "example": "GDP"
+            },
+            "action": {
+              "type": "string",
+              "nullable": true,
+              "example": "click"
+            },
+            "type": {
+              "type": "string",
+              "nullable": true,
+              "example": "detailView"
+            },
+            "datasetId": {
+              "type": "string",
+              "nullable": true,
+              "example": "dataset123"
+            }
+          },
+          "additionalProperties": false
+        },
+        "VectorQueryModel": {
+          "type": "object",
+          "properties": {
+            "vector": {
+              "type": "array",
+              "items": { "type": "number", "format": "float" },
+              "nullable": true,
+              "example": [0.1, 0.2, 0.3]
+            },
+            "fields": {
+              "type": "string",
+              "nullable": true,
+              "example": "description"
+            },
+            "kind": {
+              "type": "string",
+              "nullable": true,
+              "example": "similarity"
+            },
+            "k": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true,
+              "example": 5
+            },
+            "weight": {
+              "type": "number",
+              "format": "double",
+              "nullable": true,
+              "example": 1.0
+            },
+            "threshold": {
+              "$ref": "#/components/schemas/Threshold"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Data360Response": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "example": "success"
+            },
+            "data": {
+              "type": "array",
+              "items": {}
+            }
+          }
+        },
+        "ErrorResponse": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "An error occurred"
+            },
+            "code": {
+              "type": "integer",
+              "format": "int32",
+              "example": 400
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "ApiKeyAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-API-Key"
+        }
+      }
+    },
+    "security": [
+      { "ApiKeyAuth": [] }
+    ]
+  }
+  
