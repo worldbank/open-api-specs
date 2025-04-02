@@ -268,26 +268,31 @@
         }
       }
     },
-    "/data360/searchv3": {
+    "/data360/search": {
       "post": {
+        "summary": "Execute search",
+        "description": "Performs a search of data360 based on the search parameters.",
         "tags": [
           "Search"
         ],
         "requestBody": {
+          "description": "Vector search query parameters. Only the minimal set is shown in the example.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchQueryVector"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchQueryVector"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchQueryVector"
+                "$ref": "#/components/schemas/SearchQuerySchema"
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Minimal working example",
+                  "value": {
+                    "count": true,
+                    "select": "series_description/idno, series_description/name, series_description/database_id",
+                    "search": "poverty",
+                    "top": 10
+                  }
+                }
               }
             }
           }
@@ -755,48 +760,56 @@
         },
         "additionalProperties": false
       },
-      "SearchQueryVector": {
+      "SearchQuerySchema": {
         "type": "object",
         "properties": {
           "count": {
             "type": "boolean",
-            "nullable": true
+            "description": "When set to true, the response will include the total count of matching results.",
+            "example": true
+          },
+          "filter": {
+            "type": "string",
+            "description": "A filter expression to narrow down the search results. Remove from the body of the request if no filtering needed.",
+            "example": "series_description/topics/any(t: t/name eq 'Infrastructure: Transportation')"
+          },
+          "orderby": {
+            "type": "string",
+            "description": "Specifies the ordering of the results. Leave empty to apply default ordering.",
+            "example": "series_description/name"
+          },
+          "select": {
+            "type": "string",
+            "description": "A comma-separated list of fields to include in the response.",
+            "example": "series_description/idno, series_description/name, series_description/database_id"
+          },
+          "searchFields": {
+            "type": "string",
+            "description": "Specifies which fields should be searched. Leave empty to search all available fields.",
+            "example": "series_description/name"
+          },
+          "search": {
+            "type": "string",
+            "description": "The search term to be applied.",
+            "example": "poverty"
+          },
+          "top": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The maximum number of results to return.",
+            "example": 5
+          },
+          "skip": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of results to skip, useful for pagination.",
+            "example": 0
           },
           "facets": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
-          },
-          "filter": {
-            "type": "string",
-            "nullable": true
-          },
-          "orderBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "select": {
-            "type": "string",
-            "nullable": true
-          },
-          "searchFields": {
-            "type": "string",
-            "nullable": true
-          },
-          "search": {
-            "type": "string",
-            "nullable": true
-          },
-          "top": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "skip": {
-            "type": "integer",
-            "format": "int32",
             "nullable": true
           },
           "vectorFilterModeSearch": {
