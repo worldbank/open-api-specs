@@ -21,12 +21,20 @@
     ],
     "tags": [
       {
-        "name": "Data360",
-        "description": "Endpoints for data retrieval."
+        "name": "Search",
+        "description": "Endpoints to search data360."
       },
       {
-        "name": "Search",
-        "description": "Endpoints for metadata and search functionality."
+        "name": "Data",
+        "description": "Endpoints to retrieve data."
+      },
+      {
+        "name": "Metadata",
+        "description": "Endpoints to retrieve metadata."
+      },
+      {
+        "name": "Other",
+        "description": "Endpoints providing other functionalities."
       }
     ],
   "paths": {
@@ -35,7 +43,7 @@
         "summary": "Retrieve data based on provided filters",
         "description": "Retrieves dataset or indicators data based on a range of query filters.",
         "tags": [
-          "Data360"
+          "Data"
         ],
         "parameters": [
           { "$ref": "#/components/parameters/databaseIdQuery" },
@@ -100,7 +108,7 @@
     "/data360/disaggregation": {
       "get": {
         "tags": [
-          "Data360"
+          "Other"
         ],
         "description": "Get Disaggregation Data",
         "parameters": [
@@ -133,7 +141,7 @@
     "/data360/indicators": {
       "get": {
         "tags": [
-          "Data360"
+          "Data"
         ],
         "description": "Get Indicators",
         "parameters": [
@@ -157,7 +165,7 @@
     "/data360/saveuseraction": {
       "post": {
         "tags": [
-          "Data360"
+          "Other"
         ],
         "description": "Endpoint to Save User Actions",
         "requestBody": {
@@ -190,7 +198,7 @@
     "/data360/getuseraction": {
       "get": {
         "tags": [
-          "Data360"
+          "Other"
         ],
         "description": "Get User Actions",
         "parameters": [
@@ -230,7 +238,7 @@
     "/data360/metadata": {
       "post": {
         "tags": [
-          "Search"
+          "Metadata"
         ],
         "description": "Get Meta Data",
         "requestBody": {
