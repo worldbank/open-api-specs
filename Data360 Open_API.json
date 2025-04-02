@@ -157,26 +157,36 @@
     },
     "/data360/metadata": {
       "post": {
+        "summary": "Retrieve metadata based on provided filters",
+        "description": "Retrieves metadata based on a range of query filters.",
         "tags": [
           "Metadata"
         ],
-        "description": "Get Meta Data",
         "requestBody": {
-          "description": "",
+          "description": "A JSON object containing a single 'query' property with the raw search query string. The query string follows standard syntax for filtering and selecting fields.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SearchQuery"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchQuery"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchQuery"
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "The complete search query string. This string should include all query parameters using the supported syntax. For example: \"*&$filter=series_description/database_id eq 'WB_WDI'&$select=series_description/database_id,series_description/idno\""
+                  }
+                },
+                "required": [
+                  "query"
+                ],
+                "additionalProperties": false
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Minimal working example",
+                  "value": {
+                    "query": "*&$filter=series_description/database_id eq 'WB_WDI'&$select=series_description/database_id,series_description/idno"
+                  }
+                }
               }
             }
           }
