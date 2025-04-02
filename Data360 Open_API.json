@@ -140,93 +140,13 @@
     },
     "/data360/indicators": {
       "get": {
+        "summary": "Retrieve a list of indicator IDs",
+        "description": "Retrieves a list of indicators available in a given dataset.",
         "tags": [
           "Data"
         ],
-        "description": "Get Indicators",
         "parameters": [
-          {
-            "name": "datasetId",
-            "in": "query",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/data360/saveuseraction": {
-      "post": {
-        "tags": [
-          "Other"
-        ],
-        "description": "Endpoint to Save User Actions",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserAction"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserAction"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserAction"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/data360/getuseraction": {
-      "get": {
-        "tags": [
-          "Other"
-        ],
-        "description": "Get User Actions",
-        "parameters": [
-          {
-            "name": "datasetId",
-            "in": "query",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "indicator",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "$ref": "#/components/parameters/databaseIdQueryInd" }
         ],
         "responses": {
           "200": {
@@ -309,6 +229,14 @@
     "parameters": {
       "databaseIdQuery": {
         "name": "DATABASE_ID",
+        "in": "query",
+        "description": "Unique identifier for the database.",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "WB_WDI"
+      },
+      "databaseIdQueryInd": {
+        "name": "databaseId",
         "in": "query",
         "description": "Unique identifier for the database.",
         "required": true,
