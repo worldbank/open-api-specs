@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Data360.API",
+    "title": "Data360 API",
     "description": "This API provides users access to metadata and data files for datasets within the World Bank's Data360 Data.",
     "contact": {
       "name": "Data360 Data Support",
@@ -22,7 +22,7 @@
     "tags": [
       {
         "name": "Search",
-        "description": "Endpoints to search data360."
+        "description": "Endpoints to search Data360."
       },
       {
         "name": "Data",
@@ -40,7 +40,7 @@
   "paths": {
     "/data360/data": {
       "get": {
-        "summary": "Retrieve data based on provided filters",
+        "summary": "Data based on provided filters",
         "description": "Retrieves dataset or indicators data based on a range of query filters.",
         "tags": [
           "Data"
@@ -107,29 +107,14 @@
     },
     "/data360/disaggregation": {
       "get": {
+        "summary": "Disaggregations for a given indicator",
+        "description": "Returns all possible disaggregations for a specific indicator.",
         "tags": [
           "Other"
         ],
-        "description": "Get Disaggregation Data",
         "parameters": [
-          {
-            "name": "datasetId",
-            "in": "query",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "indicatorId",
-            "in": "query",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "$ref": "#/components/parameters/datasetIdQueryDisag" },
+          { "$ref": "#/components/parameters/indicatorQueryDisag"}
         ],
         "responses": {
           "200": {
@@ -140,7 +125,7 @@
     },
     "/data360/indicators": {
       "get": {
-        "summary": "Retrieve a list of indicator IDs",
+        "summary": "List of indicator IDs",
         "description": "Retrieves a list of indicators available in a given dataset.",
         "tags": [
           "Data"
@@ -157,7 +142,7 @@
     },
     "/data360/metadata": {
       "post": {
-        "summary": "Retrieve metadata based on provided filters",
+        "summary": "Metadata based on provided filters",
         "description": "Retrieves metadata based on a range of query filters.",
         "tags": [
           "Metadata"
@@ -199,41 +184,41 @@
       }
     },
     "/data360/search": {
-      "post": {
-        "summary": "Execute search",
-        "description": "Performs a search of data360 based on the search parameters.",
-        "tags": [
-          "Search"
-        ],
-        "requestBody": {
-          "description": "Vector search query parameters. Only the minimal set is shown in the example.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchQuerySchema"
-              },
-              "examples": {
-                "minimal": {
-                  "summary": "Minimal working example",
-                  "value": {
-                    "count": true,
-                    "select": "series_description/idno, series_description/name, series_description/database_id",
-                    "search": "poverty",
-                    "top": 10
+        "post": {
+          "summary": "Search function",
+          "description": "Performs a search of Data360 based on the search parameters.",
+          "tags": [
+            "Search"
+          ],
+          "requestBody": {
+            "description": "Vector search query parameters. Only the minimal set is shown in the example.",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchQuerySchema"
+                },
+                "examples": {
+                  "minimal": {
+                    "summary": "Minimal working example",
+                    "value": {
+                      "count": true,
+                      "select": "series_description/idno, series_description/name, series_description/database_id",
+                      "search": "poverty",
+                      "top": 10
+                    }
                   }
                 }
               }
             }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
           }
         }
       }
-    }
   },
   "components": {
     "parameters": {
@@ -247,6 +232,14 @@
       },
       "databaseIdQueryInd": {
         "name": "databaseId",
+        "in": "query",
+        "description": "Unique identifier for the database.",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "WB_WDI"
+      },
+      "datasetIdQuery": {
+        "name": "datasetId",
         "in": "query",
         "description": "Unique identifier for the database.",
         "required": true,
@@ -271,6 +264,14 @@
       },
       "indicatorQuery": {
         "name": "INDICATOR",
+        "in": "query",
+        "description": "Indicator ID.",
+        "required": false,
+        "schema": { "type": "string" },
+        "example": "WB_WDI_SP_POP_TOTL"
+      },
+      "indicatorQueryDisag": {
+        "name": "indicatorId",
         "in": "query",
         "description": "Indicator ID.",
         "required": false,
@@ -517,13 +518,13 @@
         "schema": { "type": "string" },
         "example": ""
       },
-      "datasetIdQuery": {
+      "datasetIdQueryDisag": {
         "name": "datasetId",
         "in": "query",
         "description": "Unique identifier for the dataset.",
         "required": true,
         "schema": { "type": "string" },
-        "example": "dataset123"
+        "example": "WB_WDI"
       },
       "indicatorIdQuery": {
         "name": "indicatorId",
@@ -531,7 +532,7 @@
         "description": "Unique identifier for the indicator.",
         "required": true,
         "schema": { "type": "string" },
-        "example": "indicator456"
+        "example": "WB_WDI_SP_POP_TOTL"
       },
       "actionTypeQuery": {
         "name": "type",
@@ -543,161 +544,6 @@
       }
     },
     "schemas": {
-      "Data360Request": {
-        "type": "object",
-        "properties": {
-          "databasE_ID": {
-            "type": "string",
-            "nullable": true
-          },
-          "indicator": {
-            "type": "string",
-            "nullable": true
-          },
-          "reF_AREA": {
-            "type": "string",
-            "nullable": true
-          },
-          "sex": {
-            "type": "string",
-            "nullable": true
-          },
-          "age": {
-            "type": "string",
-            "nullable": true
-          },
-          "urbanisation": {
-            "type": "string",
-            "nullable": true
-          },
-          "comP_BREAKDOWN_1": {
-            "type": "string",
-            "nullable": true
-          },
-          "comP_BREAKDOWN_2": {
-            "type": "string",
-            "nullable": true
-          },
-          "comP_BREAKDOWN_3": {
-            "type": "string",
-            "nullable": true
-          },
-          "timE_PERIOD": {
-            "type": "string",
-            "nullable": true
-          },
-          "freq": {
-            "type": "string",
-            "nullable": true
-          },
-          "uniT_MEASURE": {
-            "type": "string",
-            "nullable": true
-          },
-          "uniT_TYPE": {
-            "type": "string",
-            "nullable": true
-          },
-          "uniT_MULT": {
-            "type": "string",
-            "nullable": true
-          },
-          "timePeriodFrom": {
-            "type": "string",
-            "nullable": true
-          },
-          "timePeriodTo": {
-            "type": "string",
-            "nullable": true
-          },
-          "isLatestData": {
-            "type": "boolean"
-          },
-          "top": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "skip": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "format": {
-            "type": "string",
-            "nullable": true
-          },
-          "bonD_TYPE": {
-            "type": "string",
-            "nullable": true
-          },
-          "datE_ISS": {
-            "type": "string",
-            "nullable": true
-          },
-          "datE_MAT": {
-            "type": "string",
-            "nullable": true
-          },
-          "tenoR_BUCKET": {
-            "type": "string",
-            "nullable": true
-          },
-          "issueR_TYPE": {
-            "type": "string",
-            "nullable": true
-          },
-          "isS_NAME": {
-            "type": "string",
-            "nullable": true
-          },
-          "isin": {
-            "type": "string",
-            "nullable": true
-          },
-          "tenor": {
-            "type": "string",
-            "nullable": true
-          },
-          "obS_VALUE": {
-            "type": "string",
-            "nullable": true
-          },
-          "outstanding": {
-            "type": "string",
-            "nullable": true
-          },
-          "deaL_SIZE": {
-            "type": "string",
-            "nullable": true
-          },
-          "metric": {
-            "type": "string",
-            "nullable": true
-          },
-          "currency": {
-            "type": "string",
-            "nullable": true
-          },
-          "select": {
-            "type": "string",
-            "nullable": true
-          },
-          "filter": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SearchQuery": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "SearchQuerySchema": {
         "type": "object",
         "properties": {
@@ -774,28 +620,6 @@
           "value": {
             "type": "number",
             "format": "double",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserAction": {
-        "type": "object",
-        "properties": {
-          "indicator": {
-            "type": "string",
-            "nullable": true
-          },
-          "action": {
-            "type": "string",
-            "nullable": true
-          },
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "datasetId": {
-            "type": "string",
             "nullable": true
           }
         },
