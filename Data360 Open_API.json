@@ -211,10 +211,22 @@
                 "additionalProperties": false
               },
               "examples": {
-                "minimal": {
-                  "summary": "Minimal working example",
+                "example1": {
+                  "summary": "Retrieve all metadata fields for a given indicator",
                   "value": {
-                    "query": "*&$filter=series_description/database_id eq 'WB_WDI'&$select=series_description/database_id,series_description/idno"
+                    "query": "&$filter=series_description/idno eq 'WB_WDI_SP_POP_TOTL'"
+                  }
+                },
+                "example2": {
+                  "summary": "Retrieve specific metadata fields for a given indicator",
+                  "value": {
+                    "query": "&$filter=series_description/idno eq 'WB_WDI_SP_POP_TOTL'&$select=series_description/database_id,series_description/idno"
+                  }
+                },
+                "example3": {
+                  "summary": "Retrieve specific metadata fields for all indicators in a given database",
+                  "value": {
+                    "query": "&$filter=series_description/database_id eq 'WB_WDI'&$select=series_description/database_id,series_description/idno"
                   }
                 }
               }
