@@ -16,7 +16,7 @@
   "servers": [
       {
         "url": "https://data360api.worldbank.org",
-        "description": "Production server"
+        "description": "API root URL"
       }
     ],
     "tags": [
@@ -47,8 +47,6 @@
         ],
         "parameters": [
           { "$ref": "#/components/parameters/databaseIdQuery" },
-          { "$ref": "#/components/parameters/topQuery" },
-          { "$ref": "#/components/parameters/skipQuery" },
           { "$ref": "#/components/parameters/indicatorQuery" },
           { "$ref": "#/components/parameters/refAreaQuery" },
           { "$ref": "#/components/parameters/sexQuery" },
@@ -64,22 +62,7 @@
           { "$ref": "#/components/parameters/unitMultQuery" },
           { "$ref": "#/components/parameters/timePeriodFromQuery" },
           { "$ref": "#/components/parameters/timePeriodToQuery" },
-          { "$ref": "#/components/parameters/bondTypeQuery" },
-          { "$ref": "#/components/parameters/tenorBucketQuery" },
-          { "$ref": "#/components/parameters/issuerTypeQuery" },
-          { "$ref": "#/components/parameters/issNameQuery" },
-          { "$ref": "#/components/parameters/isinQuery" },
-          { "$ref": "#/components/parameters/tenorQuery" },
-          { "$ref": "#/components/parameters/outstandingQuery" },
-          { "$ref": "#/components/parameters/dealSizeQuery" },
-          { "$ref": "#/components/parameters/metricQuery" },
-          { "$ref": "#/components/parameters/currencyQuery" },
-          { "$ref": "#/components/parameters/dateIssQuery" },
-          { "$ref": "#/components/parameters/dateMatQuery" },
-          { "$ref": "#/components/parameters/isLatestDataQuery" },
-          { "$ref": "#/components/parameters/formatQuery" },
-          { "$ref": "#/components/parameters/selectQuery" },
-          { "$ref": "#/components/parameters/filterQuery" }
+          { "$ref": "#/components/parameters/skipQuery" }
         ], 
         "responses": {
           "200": {
@@ -257,7 +240,7 @@
       "skipQuery": {
         "name": "skip",
         "in": "query",
-        "description": "Number of records to skip.",
+        "description": "Number of records to skip. Each API call returns a maximum of 1000 records. Use the skip parameter to paginate through the results.",
         "required": false,
         "schema": { "type": "integer", "format": "int32", "default": 0 },
         "example": 0
