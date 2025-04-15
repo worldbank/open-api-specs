@@ -14,29 +14,29 @@
     "version": "v1"
   },
   "servers": [
-      {
-        "url": "https://data360api.worldbank.org",
-        "description": "API root URL"
-      }
-    ],
-    "tags": [
-      {
-        "name": "Search",
-        "description": "Endpoints to search Data360."
-      },
-      {
-        "name": "Data",
-        "description": "Endpoints to retrieve data."
-      },
-      {
-        "name": "Metadata",
-        "description": "Endpoints to retrieve metadata."
-      },
-      {
-        "name": "Other",
-        "description": "Endpoints providing other functionalities."
-      }
-    ],
+    {
+      "url": "https://data360api.worldbank.org",
+      "description": "API root URL"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search",
+      "description": "Endpoints to search Data360."
+    },
+    {
+      "name": "Data",
+      "description": "Endpoints to retrieve data."
+    },
+    {
+      "name": "Metadata",
+      "description": "Endpoints to retrieve metadata."
+    },
+    {
+      "name": "Other",
+      "description": "Endpoints providing other functionalities."
+    }
+  ],
   "paths": {
     "/data360/data": {
       "get": {
@@ -63,28 +63,90 @@
           { "$ref": "#/components/parameters/timePeriodFromQuery" },
           { "$ref": "#/components/parameters/timePeriodToQuery" },
           { "$ref": "#/components/parameters/skipQuery" }
-        ], 
+        ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
+        "description": "Success. Returns the total count of matching records along with an array of data objects.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/DataResponse"
+            },
+            "examples": {
+              "sample": {
+                "summary": "Sample response",
+                "value": {
+                  "count": 7204,
+                  "value": [
+                    {
+                      "OBS_VALUE": "38.7168",
+                      "TIME_FORMAT": "P1Y",
+                      "UNIT_MULT": 0,
+                      "COMMENT_OBS": null,
+                      "OBS_STATUS": "A",
+                      "OBS_CONF": "PU",
+                      "AGG_METHOD": "_Z",
+                      "DECIMALS": "2",
+                      "COMMENT_TS": "Primary completion rate, female (% of relevant age group)",
+                      "DATA_SOURCE": "WB_WDI",
+                      "LATEST_DATA": false,
+                      "DATABASE_ID": "WB_WDI",
+                      "INDICATOR": "WB_WDI_SE_PRM_CMPT_FE_ZS",
+                      "REF_AREA": "ARB",
+                      "SEX": "F",
+                      "AGE": "_T",
+                      "URBANISATION": "_T",
+                      "COMP_BREAKDOWN_1": "_Z",
+                      "COMP_BREAKDOWN_2": "_Z",
+                      "COMP_BREAKDOWN_3": "_Z",
+                      "TIME_PERIOD": "1970",
+                      "FREQ": "A",
+                      "UNIT_MEASURE": "PT",
+                      "UNIT_TYPE": null
+                    },
+                    {
+                      "OBS_VALUE": "41.1682",
+                      "TIME_FORMAT": "P1Y",
+                      "UNIT_MULT": 0,
+                      "COMMENT_OBS": null,
+                      "OBS_STATUS": "A",
+                      "OBS_CONF": "PU",
+                      "AGG_METHOD": "_Z",
+                      "DECIMALS": "2",
+                      "COMMENT_TS": "Primary completion rate, female (% of relevant age group)",
+                      "DATA_SOURCE": "WB_WDI",
+                      "LATEST_DATA": false,
+                      "DATABASE_ID": "WB_WDI",
+                      "INDICATOR": "WB_WDI_SE_PRM_CMPT_FE_ZS",
+                      "REF_AREA": "EAR",
+                      "SEX": "F",
+                      "AGE": "_T",
+                      "URBANISATION": "_T",
+                      "COMP_BREAKDOWN_1": "_Z",
+                      "COMP_BREAKDOWN_2": "_Z",
+                      "COMP_BREAKDOWN_3": "_Z",
+                      "TIME_PERIOD": "1970",
+                      "FREQ": "A",
+                      "UNIT_MEASURE": "PT",
+                      "UNIT_TYPE": null
+                    }
+                  ]
                 }
               }
             }
+          },
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "text/json": {
+            "schema": {
+              "type": "string"
+            }
           }
+        }
+      }
         }
       }
     },
@@ -97,7 +159,7 @@
         ],
         "parameters": [
           { "$ref": "#/components/parameters/datasetIdQueryDisag" },
-          { "$ref": "#/components/parameters/indicatorQueryDisag"}
+          { "$ref": "#/components/parameters/indicatorQueryDisag" }
         ],
         "responses": {
           "200": {
@@ -167,41 +229,53 @@
       }
     },
     "/data360/search": {
-        "post": {
-          "summary": "Search function",
-          "description": "Performs a search of Data360 based on the search parameters.",
-          "tags": [
-            "Search"
-          ],
-          "requestBody": {
-            "description": "Vector search query parameters. Only the minimal set is shown in the example.",
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SearchQuerySchema"
-                },
-                "examples": {
-                  "minimal": {
-                    "summary": "Minimal working example",
-                    "value": {
-                      "count": true,
-                      "select": "series_description/idno, series_description/name, series_description/database_id",
-                      "search": "poverty",
-                      "top": 10
-                    }
+      "post": {
+        "summary": "Search function",
+        "description": "Performs a search of Data360 based on the search parameters.",
+        "tags": [
+          "Search"
+        ],
+        "requestBody": {
+          "description": "Vector search query parameters. Only the minimal set is shown in the example.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchQuerySchema"
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Simple keyword search",
+                  "value": {
+                    "count": true,
+                    "select": "series_description/idno, series_description/name, series_description/database_id",
+                    "search": "poverty",
+                    "top": 10
                   }
-                }
+                },
+                "advanced": {
+                  "summary": "Searching only for indicators tagged with a specific topic",
+                  "value": {
+                    "count": false,
+                    "filter": "series_description/topics/any(t: t/name eq 'Health') and type eq 'indicator'",
+                    "orderby": "series_description/name",
+                    "select": "series_description/idno, series_description/name, series_description/database_id",
+                    "search": "nutrition",
+                    "top": 20,
+                    "skip": 0
+                  }
+                  }
               }
             }
-          },
-          "responses": {
-            "200": {
-              "description": "Success"
-            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
+    }
   },
   "components": {
     "parameters": {
@@ -210,7 +284,9 @@
         "in": "query",
         "description": "Unique identifier for the database.",
         "required": true,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI"
       },
       "databaseIdQueryInd": {
@@ -218,7 +294,9 @@
         "in": "query",
         "description": "Unique identifier for the database.",
         "required": true,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI"
       },
       "datasetIdQuery": {
@@ -226,7 +304,9 @@
         "in": "query",
         "description": "Unique identifier for the database.",
         "required": true,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI"
       },
       "topQuery": {
@@ -234,7 +314,11 @@
         "in": "query",
         "description": "Maximum number of records to return.",
         "required": false,
-        "schema": { "type": "integer", "format": "int32", "default": 1000 },
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 1000
+        },
         "example": 20
       },
       "skipQuery": {
@@ -242,7 +326,11 @@
         "in": "query",
         "description": "Number of records to skip. Each API call returns a maximum of 1000 records. Use the skip parameter to paginate through the results.",
         "required": false,
-        "schema": { "type": "integer", "format": "int32", "default": 0 },
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        },
         "example": 0
       },
       "indicatorQuery": {
@@ -250,7 +338,9 @@
         "in": "query",
         "description": "Indicator ID.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI_SP_POP_TOTL"
       },
       "indicatorQueryDisag": {
@@ -258,7 +348,9 @@
         "in": "query",
         "description": "Indicator ID.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI_SP_POP_TOTL"
       },
       "refAreaQuery": {
@@ -266,7 +358,9 @@
         "in": "query",
         "description": "Reference area code (e.g., country code).",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "sexQuery": {
@@ -274,7 +368,9 @@
         "in": "query",
         "description": "Sex of the subjects, if applicable.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "ageQuery": {
@@ -282,7 +378,9 @@
         "in": "query",
         "description": "Age group filter.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "urbanisationQuery": {
@@ -290,7 +388,9 @@
         "in": "query",
         "description": "Urbanisation filter.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "compBreakdown1Query": {
@@ -298,7 +398,9 @@
         "in": "query",
         "description": "Indicator specific dimension.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "compBreakdown2Query": {
@@ -306,7 +408,9 @@
         "in": "query",
         "description": "Indicator specific dimensionn.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "compBreakdown3Query": {
@@ -314,7 +418,9 @@
         "in": "query",
         "description": "Indicator specific dimensionn.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "timePeriodQuery": {
@@ -322,7 +428,9 @@
         "in": "query",
         "description": "Time period for the data.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "freqQuery": {
@@ -330,7 +438,9 @@
         "in": "query",
         "description": "Frequency of the data.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "unitMeasureQuery": {
@@ -338,7 +448,9 @@
         "in": "query",
         "description": "Unit of measure for the data.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "unitTypeQuery": {
@@ -346,7 +458,9 @@
         "in": "query",
         "description": "Type of unit (e.g., 'currency', 'percentage').",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "unitMultQuery": {
@@ -354,7 +468,9 @@
         "in": "query",
         "description": "Multiplier for the unit.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "timePeriodFromQuery": {
@@ -362,7 +478,9 @@
         "in": "query",
         "description": "Start of the time period range.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "timePeriodToQuery": {
@@ -370,7 +488,9 @@
         "in": "query",
         "description": "End of the time period range.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "bondTypeQuery": {
@@ -378,7 +498,9 @@
         "in": "query",
         "description": "Type of bond, if applicable.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "tenorBucketQuery": {
@@ -386,7 +508,9 @@
         "in": "query",
         "description": "Bucket for the bond tenor.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "issuerTypeQuery": {
@@ -394,7 +518,9 @@
         "in": "query",
         "description": "Type of issuer.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "issNameQuery": {
@@ -402,7 +528,9 @@
         "in": "query",
         "description": "Name of the issuer.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "isinQuery": {
@@ -410,7 +538,9 @@
         "in": "query",
         "description": "International Securities Identification Number.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "tenorQuery": {
@@ -418,7 +548,9 @@
         "in": "query",
         "description": "Tenor of the bond.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "outstandingQuery": {
@@ -426,7 +558,9 @@
         "in": "query",
         "description": "Outstanding value, if applicable.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "dealSizeQuery": {
@@ -434,7 +568,9 @@
         "in": "query",
         "description": "Deal size for the bond issuance.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "metricQuery": {
@@ -442,7 +578,9 @@
         "in": "query",
         "description": "Metric to be used for the data.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "currencyQuery": {
@@ -450,7 +588,9 @@
         "in": "query",
         "description": "Currency code (e.g., USD, EUR).",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "dateIssQuery": {
@@ -458,7 +598,9 @@
         "in": "query",
         "description": "Issue date of the bond.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "dateMatQuery": {
@@ -466,7 +608,9 @@
         "in": "query",
         "description": "Maturity date of the bond.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "isLatestDataQuery": {
@@ -474,7 +618,11 @@
         "in": "query",
         "description": "Flag indicating whether to retrieve the latest data.",
         "required": false,
-        "schema": { "type": "boolean", "default": false, "nullable": true },
+        "schema": {
+          "type": "boolean",
+          "default": false,
+          "nullable": true
+        },
         "example": ""
       },
       "formatQuery": {
@@ -482,7 +630,10 @@
         "in": "query",
         "description": "Response format, e.g., json.",
         "required": false,
-        "schema": { "type": "string", "default": "json" },
+        "schema": {
+          "type": "string",
+          "default": "json"
+        },
         "example": ""
       },
       "selectQuery": {
@@ -490,7 +641,9 @@
         "in": "query",
         "description": "Fields to select in the response.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "filterQuery": {
@@ -498,7 +651,9 @@
         "in": "query",
         "description": "Filter criteria for the data.",
         "required": false,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": ""
       },
       "datasetIdQueryDisag": {
@@ -506,7 +661,9 @@
         "in": "query",
         "description": "Unique identifier for the dataset.",
         "required": true,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI"
       },
       "indicatorIdQuery": {
@@ -514,7 +671,9 @@
         "in": "query",
         "description": "Unique identifier for the indicator.",
         "required": true,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "WB_WDI_SP_POP_TOTL"
       },
       "actionTypeQuery": {
@@ -522,7 +681,9 @@
         "in": "query",
         "description": "Type of user action to filter by.",
         "required": true,
-        "schema": { "type": "string" },
+        "schema": {
+          "type": "string"
+        },
         "example": "click"
       }
     },
@@ -642,7 +803,124 @@
           }
         },
         "additionalProperties": false
+      },
+      "DataResponse": {
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "description": "Total number of matching records."
+    },
+    "value": {
+      "type": "array",
+      "description": "Array of data records.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "OBS_VALUE": {
+            "type": "string",
+            "description": "Observation value."
+          },
+          "TIME_FORMAT": {
+            "type": "string",
+            "description": "Time format, e.g., period (P1Y)."
+          },
+          "UNIT_MULT": {
+            "type": "integer",
+            "description": "Multiplier for the unit."
+          },
+          "COMMENT_OBS": {
+            "type": ["string", "null"],
+            "description": "Comment for the observation."
+          },
+          "OBS_STATUS": {
+            "type": "string",
+            "description": "Observation status."
+          },
+          "OBS_CONF": {
+            "type": "string",
+            "description": "Observation confidence."
+          },
+          "AGG_METHOD": {
+            "type": "string",
+            "description": "Aggregation method."
+          },
+          "DECIMALS": {
+            "type": "string",
+            "description": "Number of decimal places."
+          },
+          "COMMENT_TS": {
+            "type": "string",
+            "description": "Comment on the timeseries."
+          },
+          "DATA_SOURCE": {
+            "type": "string",
+            "description": "Identifier for the data source."
+          },
+          "LATEST_DATA": {
+            "type": "boolean",
+            "description": "Indicates if the data is the latest available."
+          },
+          "DATABASE_ID": {
+            "type": "string",
+            "description": "Identifier for the database."
+          },
+          "INDICATOR": {
+            "type": "string",
+            "description": "Identifier for the indicator."
+          },
+          "REF_AREA": {
+            "type": "string",
+            "description": "Reference area (e.g., country or region code)."
+          },
+          "SEX": {
+            "type": "string",
+            "description": "Sex of the subject."
+          },
+          "AGE": {
+            "type": "string",
+            "description": "Age group."
+          },
+          "URBANISATION": {
+            "type": "string",
+            "description": "Indicator of urbanisation."
+          },
+          "COMP_BREAKDOWN_1": {
+            "type": "string",
+            "description": "Composite breakdown dimension 1."
+          },
+          "COMP_BREAKDOWN_2": {
+            "type": "string",
+            "description": "Composite breakdown dimension 2."
+          },
+          "COMP_BREAKDOWN_3": {
+            "type": "string",
+            "description": "Composite breakdown dimension 3."
+          },
+          "TIME_PERIOD": {
+            "type": "string",
+            "description": "Time period of the observation."
+          },
+          "FREQ": {
+            "type": "string",
+            "description": "Frequency of the data."
+          },
+          "UNIT_MEASURE": {
+            "type": "string",
+            "description": "Unit of measure."
+          },
+          "UNIT_TYPE": {
+            "type": ["string", "null"],
+            "description": "Type of unit (if applicable)."
+          }
+        },
+        "additionalProperties": false
       }
+    }
+  },
+  "additionalProperties": false
+}
+
     }
   }
 }
