@@ -176,7 +176,7 @@
           "Data"
         ],
         "parameters": [
-          { "$ref": "#/components/parameters/databaseIdQueryInd" }
+          { "$ref": "#/components/parameters/datasetIdQuery" }
         ],
         "responses": {
           "200": {
