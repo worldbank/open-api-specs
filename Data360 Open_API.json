@@ -240,7 +240,7 @@
         }
       }
     },
-    "/data360/search": {
+    "/data360/searchv2": {
       "post": {
         "summary": "Search function",
         "description": "Performs a search of Data360 based on the search parameters.",
