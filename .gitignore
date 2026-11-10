@@ -1,0 +1,15 @@
+# Local scratch files
+_TMP/
+
+# Secrets
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp

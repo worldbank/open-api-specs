@@ -1,0 +1,1445 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "FINDI API",
+    "description": "This API provides users access to data and metadata for FINDI datasets hosted on the World Bank's Data360 platform.",
+    "contact": {
+      "name": "FINDI Data Support",
+      "email": "data@worldbank.org"
+    },
+    "license": {
+      "name": "Creative Commons 4.0 by Attribution",
+      "url": "https://creativecommons.org/licenses/by/4.0"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://data360api.worldbank.org",
+      "description": "API root URL"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search",
+      "description": "Endpoints to search Data360."
+    },
+    {
+      "name": "Data",
+      "description": "Endpoints to retrieve data."
+    },
+    {
+      "name": "Metadata",
+      "description": "Endpoints to retrieve metadata."
+    },
+    {
+      "name": "Other",
+      "description": "Endpoints providing other functionalities."
+    }
+  ],
+  "paths": {
+    "/data360/data": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Data based on provided filters",
+        "description": "Retrieves dataset or indicators data based on a range of query filters.",
+        "operationId": "getData",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/databaseIdQuery"
+          },
+          {
+            "$ref": "#/components/parameters/indicatorQuery"
+          },
+          {
+            "$ref": "#/components/parameters/refAreaQuery"
+          },
+          {
+            "$ref": "#/components/parameters/sexQuery"
+          },
+          {
+            "$ref": "#/components/parameters/ageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/urbanisationQuery"
+          },
+          {
+            "$ref": "#/components/parameters/compBreakdown1Query"
+          },
+          {
+            "$ref": "#/components/parameters/compBreakdown2Query"
+          },
+          {
+            "$ref": "#/components/parameters/compBreakdown3Query"
+          },
+          {
+            "$ref": "#/components/parameters/timePeriodQuery"
+          },
+          {
+            "$ref": "#/components/parameters/freqQuery"
+          },
+          {
+            "$ref": "#/components/parameters/unitMeasureQuery"
+          },
+          {
+            "$ref": "#/components/parameters/unitTypeQuery"
+          },
+          {
+            "$ref": "#/components/parameters/unitMultQuery"
+          },
+          {
+            "$ref": "#/components/parameters/timePeriodFromQuery"
+          },
+          {
+            "$ref": "#/components/parameters/timePeriodToQuery"
+          },
+          {
+            "$ref": "#/components/parameters/skipQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns the total count of matching records along with an array of data objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataResponse"
+                },
+                "examples": {
+                  "sample": {
+                    "summary": "Sample response",
+                    "value": {
+                      "count": 7204,
+                      "value": [
+                        {
+                          "OBS_VALUE": "38.7168",
+                          "TIME_FORMAT": "P1Y",
+                          "UNIT_MULT": 0,
+                          "COMMENT_OBS": null,
+                          "OBS_STATUS": "A",
+                          "OBS_CONF": "PU",
+                          "AGG_METHOD": "_Z",
+                          "DECIMALS": "2",
+                          "COMMENT_TS": "Primary completion rate, female (% of relevant age group)",
+                          "DATA_SOURCE": "WB_WDI",
+                          "LATEST_DATA": false,
+                          "DATABASE_ID": "WB_WDI",
+                          "INDICATOR": "WB_WDI_SE_PRM_CMPT_FE_ZS",
+                          "REF_AREA": "ARB",
+                          "SEX": "F",
+                          "AGE": "_T",
+                          "URBANISATION": "_T",
+                          "COMP_BREAKDOWN_1": "_Z",
+                          "COMP_BREAKDOWN_2": "_Z",
+                          "COMP_BREAKDOWN_3": "_Z",
+                          "TIME_PERIOD": "1970",
+                          "FREQ": "A",
+                          "UNIT_MEASURE": "PT",
+                          "UNIT_TYPE": null
+                        },
+                        {
+                          "OBS_VALUE": "41.1682",
+                          "TIME_FORMAT": "P1Y",
+                          "UNIT_MULT": 0,
+                          "COMMENT_OBS": null,
+                          "OBS_STATUS": "A",
+                          "OBS_CONF": "PU",
+                          "AGG_METHOD": "_Z",
+                          "DECIMALS": "2",
+                          "COMMENT_TS": "Primary completion rate, female (% of relevant age group)",
+                          "DATA_SOURCE": "WB_WDI",
+                          "LATEST_DATA": false,
+                          "DATABASE_ID": "WB_WDI",
+                          "INDICATOR": "WB_WDI_SE_PRM_CMPT_FE_ZS",
+                          "REF_AREA": "EAR",
+                          "SEX": "F",
+                          "AGE": "_T",
+                          "URBANISATION": "_T",
+                          "COMP_BREAKDOWN_1": "_Z",
+                          "COMP_BREAKDOWN_2": "_Z",
+                          "COMP_BREAKDOWN_3": "_Z",
+                          "TIME_PERIOD": "1970",
+                          "FREQ": "A",
+                          "UNIT_MEASURE": "PT",
+                          "UNIT_TYPE": null
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/data": {
+      "get": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Data based on provided filters",
+        "description": "Retrieves dataset or indicators data based on a range of query filters.",
+        "operationId": "getPortalData",
+        "parameters": [
+          {
+            "name": "database_id",
+            "in": "query",
+            "description": "Unique identifier for the database.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "indicator_id",
+            "in": "query",
+            "description": "Indicator ID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timePeriodFrom",
+            "in": "query",
+            "description": "Start of the time period range.",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "timePeriodTo",
+            "in": "query",
+            "description": "End of the time period range.",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "isLatestData",
+            "in": "query",
+            "description": "Flag indicating whether to retrieve the latest data.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "filters",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns the indicators data of records matching the query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalDataResponse"
+                },
+                "examples": {
+                  "sample": {
+                    "summary": "Sample response",
+                    "value": {
+                      "value": [
+                        {
+                          "FREQ": "A",
+                          "REF_AREA": "AGO",
+                          "INDICATOR": "FD_FDI_OVRL",
+                          "EV_CRITERIA": "_T",
+                          "UNIT_MEASURE": "0_TO_100",
+                          "SEGMENT": "_T",
+                          "range": "latest",
+                          "data": {
+                            "xAxis": [
+                              "2024"
+                            ],
+                            "yAxis": [
+                              "18.064026"
+                            ],
+                            "attributes": [
+                              {
+                                "Time_Period": "2024",
+                                "AGG_METHOD": "MEDIAN",
+                                "DECIMALS": "0",
+                                "DATABASE_ID": "WB_FINDATA",
+                                "UNIT_MULT": "0",
+                                "UNIT_TYPE": "",
+                                "TIME_FORMAT": "602",
+                                "OBS_STATUS": "A",
+                                "OBS_CONF": "PU"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "FREQ": "A",
+                          "REF_AREA": "AGO",
+                          "INDICATOR": "FD_FDI_OVRL",
+                          "EV_CRITERIA": "_T",
+                          "UNIT_MEASURE": "0_TO_100",
+                          "SEGMENT": "BK",
+                          "range": "latest",
+                          "data": {
+                            "xAxis": [
+                              "2024"
+                            ],
+                            "yAxis": [
+                              "28.738876"
+                            ],
+                            "attributes": [
+                              {
+                                "Time_Period": "2024",
+                                "AGG_METHOD": "MEDIAN",
+                                "DECIMALS": "0",
+                                "DATABASE_ID": "WB_FINDATA",
+                                "UNIT_MULT": "0",
+                                "UNIT_TYPE": "",
+                                "TIME_FORMAT": "602",
+                                "OBS_STATUS": "A",
+                                "OBS_CONF": "PU"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/temporaldata": {
+      "post": {
+        "tags": [
+          "Data"
+        ],
+        "summary": "Retrieve indicators time series data",
+        "description": "Retrieves indicators time series data based on a range of query filters.",
+        "operationId": "getTemporalData",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemporalDataRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemporalDataRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemporalDataRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success. Returns the indicators time series data of records matching the query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemporalDataResponse"
+                },
+                "examples": {
+                  "sample": {
+                    "summary": "Sample response",
+                    "value": {
+                      "value": [
+                        {
+                          "DATABASE_ID": "WB_FINDATA",
+                          "REF_AREA": "AGO",
+                          "INDICATOR": "FD_FDI_OVRL",
+                          "range": "2000 - 2024",
+                          "observations": [
+                            {
+                              "time_period": "2000",
+                              "obs_value": "25.488132"
+                            },
+                            {
+                              "time_period": "2001",
+                              "obs_value": "39.612206"
+                            },
+                            {
+                              "time_period": "2002",
+                              "obs_value": "32.790012"
+                            },
+                            {
+                              "time_period": "2003",
+                              "obs_value": "33.079552"
+                            },
+                            {
+                              "time_period": "2004",
+                              "obs_value": "30.936619"
+                            },
+                            {
+                              "time_period": "2005",
+                              "obs_value": "26.007694"
+                            },
+                            {
+                              "time_period": "2006",
+                              "obs_value": "27.575817"
+                            },
+                            {
+                              "time_period": "2007",
+                              "obs_value": "15.264111"
+                            },
+                            {
+                              "time_period": "2008",
+                              "obs_value": "16.922359"
+                            },
+                            {
+                              "time_period": "2009",
+                              "obs_value": "18.977587"
+                            },
+                            {
+                              "time_period": "2010",
+                              "obs_value": "18.377871"
+                            },
+                            {
+                              "time_period": "2011",
+                              "obs_value": "16.29464"
+                            },
+                            {
+                              "time_period": "2012",
+                              "obs_value": "14.648827"
+                            },
+                            {
+                              "time_period": "2013",
+                              "obs_value": "14.6357"
+                            },
+                            {
+                              "time_period": "2014",
+                              "obs_value": "11.655784"
+                            },
+                            {
+                              "time_period": "2015",
+                              "obs_value": "15.654501"
+                            },
+                            {
+                              "time_period": "2016",
+                              "obs_value": "16.986443"
+                            },
+                            {
+                              "time_period": "2017",
+                              "obs_value": "16.067686"
+                            },
+                            {
+                              "time_period": "2018",
+                              "obs_value": "20.987152"
+                            },
+                            {
+                              "time_period": "2019",
+                              "obs_value": "11.430966"
+                            },
+                            {
+                              "time_period": "2020",
+                              "obs_value": "16.120045"
+                            },
+                            {
+                              "time_period": "2021",
+                              "obs_value": "19.734776"
+                            },
+                            {
+                              "time_period": "2022",
+                              "obs_value": "15.941161"
+                            },
+                            {
+                              "time_period": "2023",
+                              "obs_value": "15.018127"
+                            },
+                            {
+                              "time_period": "2024",
+                              "obs_value": "18.064026"
+                            }
+                          ]
+                        },
+                        {
+                          "DATABASE_ID": "WB_FINDATA",
+                          "REF_AREA": "AGO",
+                          "INDICATOR": "FD_FDI_OVRL",
+                          "range": "2000 - 2024",
+                          "observations": [
+                            {
+                              "time_period": "2000",
+                              "obs_value": "25.703808"
+                            },
+                            {
+                              "time_period": "2001",
+                              "obs_value": "40.90448"
+                            },
+                            {
+                              "time_period": "2002",
+                              "obs_value": "32.953007"
+                            },
+                            {
+                              "time_period": "2003",
+                              "obs_value": "33.132366"
+                            },
+                            {
+                              "time_period": "2004",
+                              "obs_value": "31.031149"
+                            },
+                            {
+                              "time_period": "2005",
+                              "obs_value": "26.357475"
+                            },
+                            {
+                              "time_period": "2006",
+                              "obs_value": "27.791763"
+                            },
+                            {
+                              "time_period": "2007",
+                              "obs_value": "30.902588"
+                            },
+                            {
+                              "time_period": "2008",
+                              "obs_value": "34.57098"
+                            },
+                            {
+                              "time_period": "2009",
+                              "obs_value": "39.529514"
+                            },
+                            {
+                              "time_period": "2010",
+                              "obs_value": "36.854946"
+                            },
+                            {
+                              "time_period": "2011",
+                              "obs_value": "33.578381"
+                            },
+                            {
+                              "time_period": "2012",
+                              "obs_value": "29.712215"
+                            },
+                            {
+                              "time_period": "2013",
+                              "obs_value": "29.839647"
+                            },
+                            {
+                              "time_period": "2014",
+                              "obs_value": "23.602608"
+                            },
+                            {
+                              "time_period": "2015",
+                              "obs_value": "31.07613"
+                            },
+                            {
+                              "time_period": "2016",
+                              "obs_value": "31.706009"
+                            },
+                            {
+                              "time_period": "2017",
+                              "obs_value": "28.726929"
+                            },
+                            {
+                              "time_period": "2018",
+                              "obs_value": "36.043377"
+                            },
+                            {
+                              "time_period": "2019",
+                              "obs_value": "15.763423"
+                            },
+                            {
+                              "time_period": "2020",
+                              "obs_value": "23.589649"
+                            },
+                            {
+                              "time_period": "2021",
+                              "obs_value": "32.803131"
+                            },
+                            {
+                              "time_period": "2022",
+                              "obs_value": "26.259439"
+                            },
+                            {
+                              "time_period": "2023",
+                              "obs_value": "23.528568"
+                            },
+                            {
+                              "time_period": "2024",
+                              "obs_value": "28.738876"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/dimensions": {
+      "post": {
+        "tags": [
+          "Other"
+        ],
+        "summary": "Disaggregations for a given indicator",
+        "description": "Returns all possible disaggregations for a specific indicator.",
+        "operationId": "getDimensions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DimensionDataDetails"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DimensionDataDetails"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DimensionDataDetails"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/hierarchy": {
+      "get": {
+        "tags": [
+          "Other"
+        ],
+        "summary": "Retrieve hierarchy",
+        "operationId": "getHierarchy",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "site",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/metadata": {
+      "get": {
+        "tags": [
+          "Metadata"
+        ],
+        "summary": "Retrieve dataset or indicator metadata",
+        "description": "Returns the metadata JSON document for a dataset or an indicator.\n\n- For dataset metadata, set `type` to `dataset` and `id` to the dataset identifier.\n- For indicator metadata, set `type` to `indicator`, `id` to the identifier of the parent entity, and `subtype_id` to the indicator identifier.",
+        "operationId": "getMetadata",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Metadata type: 'dataset' or 'indicator'.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "dataset",
+                "indicator"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Dataset or parent entity identifier.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subtype_id",
+            "in": "query",
+            "description": "Indicator identifier. Required when `type` is `indicator`.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/get_entities_by_id": {
+      "post": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Retrieves entities by their ID with specified fields.",
+        "operationId": "getEntitiesById",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEntitiesByIdRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEntitiesByIdRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEntitiesByIdRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/data360/portal/v1/entities_by_economy_topic_tag": {
+      "post": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Retrieve entities by economy, topic, and tags with pagination.",
+        "operationId": "getEntitiesByEconomyTopicTag",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEntitiesByCountryTopicTagRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEntitiesByCountryTopicTagRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEntitiesByCountryTopicTagRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VectorSearchWithoutFacetsResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VectorSearchWithoutFacetsResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VectorSearchWithoutFacetsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "databaseIdQuery": {
+        "name": "DATABASE_ID",
+        "in": "query",
+        "description": "Unique identifier for the database.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "example": "WB_WDI"
+      },
+      "indicatorQuery": {
+        "name": "INDICATOR",
+        "in": "query",
+        "description": "Indicator ID.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": "WB_WDI_SP_POP_TOTL"
+      },
+      "refAreaQuery": {
+        "name": "REF_AREA",
+        "in": "query",
+        "description": "Reference area code (e.g., country code).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "sexQuery": {
+        "name": "SEX",
+        "in": "query",
+        "description": "Sex of the subjects, if applicable.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "ageQuery": {
+        "name": "AGE",
+        "in": "query",
+        "description": "Age group filter.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "urbanisationQuery": {
+        "name": "URBANISATION",
+        "in": "query",
+        "description": "Urbanisation filter.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "compBreakdown1Query": {
+        "name": "COMP_BREAKDOWN_1",
+        "in": "query",
+        "description": "Indicator specific dimension.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "compBreakdown2Query": {
+        "name": "COMP_BREAKDOWN_2",
+        "in": "query",
+        "description": "Indicator specific dimensionn.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "compBreakdown3Query": {
+        "name": "COMP_BREAKDOWN_3",
+        "in": "query",
+        "description": "Indicator specific dimensionn.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "timePeriodQuery": {
+        "name": "TIME_PERIOD",
+        "in": "query",
+        "description": "Time period for the data.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "freqQuery": {
+        "name": "FREQ",
+        "in": "query",
+        "description": "Frequency of the data.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "unitMeasureQuery": {
+        "name": "UNIT_MEASURE",
+        "in": "query",
+        "description": "Unit of measure for the data.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "unitTypeQuery": {
+        "name": "UNIT_TYPE",
+        "in": "query",
+        "description": "Type of unit (e.g., 'currency', 'percentage').",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "unitMultQuery": {
+        "name": "UNIT_MULT",
+        "in": "query",
+        "description": "Multiplier for the unit.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "timePeriodFromQuery": {
+        "name": "timePeriodFrom",
+        "in": "query",
+        "description": "Start of the time period range.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "timePeriodToQuery": {
+        "name": "timePeriodTo",
+        "in": "query",
+        "description": "End of the time period range.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "skipQuery": {
+        "name": "skip",
+        "in": "query",
+        "description": "Number of records to skip. Each API call returns a maximum of 1000 records. Use the skip parameter to paginate through the results.",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        },
+        "example": 0
+      }
+    },
+    "schemas": {
+      "DataResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "Total number of matching records."
+          },
+          "value": {
+            "type": "array",
+            "description": "Array of data records.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "OBS_VALUE": {
+                  "type": "string",
+                  "description": "Observation value."
+                },
+                "TIME_FORMAT": {
+                  "type": "string",
+                  "description": "Time format, e.g., period (P1Y)."
+                },
+                "UNIT_MULT": {
+                  "type": "integer",
+                  "description": "Multiplier for the unit."
+                },
+                "COMMENT_OBS": {
+                  "type": "string",
+                  "description": "Comment for the observation.",
+                  "nullable": true
+                },
+                "OBS_STATUS": {
+                  "type": "string",
+                  "description": "Observation status."
+                },
+                "OBS_CONF": {
+                  "type": "string",
+                  "description": "Observation confidence."
+                },
+                "AGG_METHOD": {
+                  "type": "string",
+                  "description": "Aggregation method."
+                },
+                "DECIMALS": {
+                  "type": "string",
+                  "description": "Number of decimal places."
+                },
+                "COMMENT_TS": {
+                  "type": "string",
+                  "description": "Comment on the timeseries."
+                },
+                "DATA_SOURCE": {
+                  "type": "string",
+                  "description": "Identifier for the data source."
+                },
+                "LATEST_DATA": {
+                  "type": "boolean",
+                  "description": "Indicates if the data is the latest available."
+                },
+                "DATABASE_ID": {
+                  "type": "string",
+                  "description": "Identifier for the database."
+                },
+                "INDICATOR": {
+                  "type": "string",
+                  "description": "Identifier for the indicator."
+                },
+                "REF_AREA": {
+                  "type": "string",
+                  "description": "Reference area (e.g., country or region code)."
+                },
+                "SEX": {
+                  "type": "string",
+                  "description": "Sex of the subject."
+                },
+                "AGE": {
+                  "type": "string",
+                  "description": "Age group."
+                },
+                "URBANISATION": {
+                  "type": "string",
+                  "description": "Indicator of urbanisation."
+                },
+                "COMP_BREAKDOWN_1": {
+                  "type": "string",
+                  "description": "Composite breakdown dimension 1."
+                },
+                "COMP_BREAKDOWN_2": {
+                  "type": "string",
+                  "description": "Composite breakdown dimension 2."
+                },
+                "COMP_BREAKDOWN_3": {
+                  "type": "string",
+                  "description": "Composite breakdown dimension 3."
+                },
+                "TIME_PERIOD": {
+                  "type": "string",
+                  "description": "Time period of the observation."
+                },
+                "FREQ": {
+                  "type": "string",
+                  "description": "Frequency of the data."
+                },
+                "UNIT_MEASURE": {
+                  "type": "string",
+                  "description": "Unit of measure."
+                },
+                "UNIT_TYPE": {
+                  "type": "string",
+                  "description": "Type of unit (if applicable).",
+                  "nullable": true
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "DimensionDataDetails": {
+        "type": "object",
+        "description": "Request body identifying the indicator whose disaggregations are requested. The field list has not been documented yet."
+      },
+      "Filter": {
+        "type": "object",
+        "properties": {
+          "filterColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "filterValue": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetEntitiesByCountryTopicTagRequest": {
+        "required": [
+          "data_classification",
+          "site",
+          "types"
+        ],
+        "type": "object",
+        "properties": {
+          "site": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "data_classification": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "economy_codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "topic_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "tag_group_to_ids": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "nullable": true
+          },
+          "items_per_page": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request model for retrieving entities by country, topic, and tags with pagination."
+      },
+      "GetEntitiesByIdRequest": {
+        "required": [
+          "data_classification",
+          "entity_ids",
+          "fields",
+          "site"
+        ],
+        "type": "object",
+        "properties": {
+          "site": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "data_classification": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "entity_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request model for retrieving a single entity by its ID."
+      },
+      "PortalDataResponse": {
+        "type": "object",
+        "description": "Indicator data returned as one series per combination of dimension values.",
+        "properties": {
+          "value": {
+            "type": "array",
+            "description": "Array of data series.",
+            "items": {
+              "$ref": "#/components/schemas/PortalDataSeries"
+            }
+          }
+        }
+      },
+      "PortalDataSeries": {
+        "type": "object",
+        "description": "A data series. In addition to the properties listed here, each series has one property per dimension of the dataset (for example `EV_CRITERIA` or `SEGMENT`), so the exact set of keys varies by dataset.",
+        "properties": {
+          "FREQ": {
+            "type": "string",
+            "description": "Frequency of the data."
+          },
+          "REF_AREA": {
+            "type": "string",
+            "description": "Reference area (e.g., country or region code)."
+          },
+          "INDICATOR": {
+            "type": "string",
+            "description": "Identifier for the indicator."
+          },
+          "UNIT_MEASURE": {
+            "type": "string",
+            "description": "Unit of measure."
+          },
+          "range": {
+            "type": "string",
+            "description": "Time range covered by the series, e.g. `latest`."
+          },
+          "data": {
+            "type": "object",
+            "description": "Observations of the series.",
+            "properties": {
+              "xAxis": {
+                "type": "array",
+                "description": "Time periods of the observations.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "yAxis": {
+                "type": "array",
+                "description": "Observation values, in the same order as `xAxis`.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "attributes": {
+                "type": "array",
+                "description": "Attributes of each observation, in the same order as `xAxis`.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Time_Period": {
+                      "type": "string",
+                      "description": "Time period of the observation."
+                    },
+                    "AGG_METHOD": {
+                      "type": "string",
+                      "description": "Aggregation method."
+                    },
+                    "DECIMALS": {
+                      "type": "string",
+                      "description": "Number of decimal places."
+                    },
+                    "DATABASE_ID": {
+                      "type": "string",
+                      "description": "Identifier for the database."
+                    },
+                    "UNIT_MULT": {
+                      "type": "string",
+                      "description": "Multiplier for the unit."
+                    },
+                    "UNIT_TYPE": {
+                      "type": "string",
+                      "description": "Type of unit (if applicable)."
+                    },
+                    "TIME_FORMAT": {
+                      "type": "string",
+                      "description": "Time format, e.g., period (P1Y)."
+                    },
+                    "OBS_STATUS": {
+                      "type": "string",
+                      "description": "Observation status."
+                    },
+                    "OBS_CONF": {
+                      "type": "string",
+                      "description": "Observation confidence."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TemporalDataIndicators": {
+        "type": "object",
+        "properties": {
+          "indicator": {
+            "type": "string",
+            "nullable": true
+          },
+          "filters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filter"
+            },
+            "nullable": true
+          },
+          "timePeriodFrom": {
+            "type": "string",
+            "nullable": true
+          },
+          "timePeriodTo": {
+            "type": "string",
+            "nullable": true
+          },
+          "isLatestData": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TemporalDataRequest": {
+        "type": "object",
+        "properties": {
+          "database_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "indicators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemporalDataIndicators"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TemporalDataResponse": {
+        "type": "object",
+        "description": "Indicator time series data.",
+        "properties": {
+          "value": {
+            "type": "array",
+            "description": "Array of time series.",
+            "items": {
+              "$ref": "#/components/schemas/TemporalDataSeries"
+            }
+          }
+        }
+      },
+      "TemporalDataSeries": {
+        "type": "object",
+        "description": "A time series for one indicator and economy.",
+        "properties": {
+          "DATABASE_ID": {
+            "type": "string",
+            "description": "Identifier for the database."
+          },
+          "REF_AREA": {
+            "type": "string",
+            "description": "Reference area (e.g., country or region code)."
+          },
+          "INDICATOR": {
+            "type": "string",
+            "description": "Identifier for the indicator."
+          },
+          "range": {
+            "type": "string",
+            "description": "Time range covered by the series, e.g. `2000 - 2024`."
+          },
+          "observations": {
+            "type": "array",
+            "description": "Observations of the series, one per time period.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "time_period": {
+                  "type": "string",
+                  "description": "Time period of the observation."
+                },
+                "obs_value": {
+                  "type": "string",
+                  "description": "Observation value."
+                }
+              }
+            }
+          }
+        }
+      },
+      "VectorSearchWithoutFacetsResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "results": {
+            "type": "array",
+            "items": {},
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
