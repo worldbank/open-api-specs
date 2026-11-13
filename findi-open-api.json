@@ -97,6 +97,15 @@
           },
           {
             "$ref": "#/components/parameters/skipQuery"
+          },
+          {
+            "$ref": "#/components/parameters/evCriteriaQuery"
+          },
+          {
+            "$ref": "#/components/parameters/segmentQuery"
+          },
+          {
+            "$ref": "#/components/parameters/aggregationmethodQuery"
           }
         ],
         "responses": {
@@ -1028,6 +1037,36 @@
           "default": 0
         },
         "example": 0
+      },
+      "evCriteriaQuery": {
+        "name": "EV_CRITERIA",
+        "in": "query",
+        "description": "Evaluation criteria filter (e.g. `AC`, `DH`, `EF`, or `_T` for total).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "segmentQuery": {
+        "name": "SEGMENT",
+        "in": "query",
+        "description": "Segment filter (e.g. `BK`, `FI`, `FM`, or `_T` for total).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
+      },
+      "aggregationmethodQuery": {
+        "name": "AGG_METHOD",
+        "in": "query",
+        "description": "Aggregation method filter (e.g. `MEDIAN`).",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "example": ""
       }
     },
     "schemas": {
@@ -1096,15 +1135,25 @@
                 },
                 "COMMENT_TS": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Comment on the timeseries."
                 },
                 "DATA_SOURCE": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Identifier for the data source."
                 },
                 "LATEST_DATA": {
                   "type": "boolean",
                   "description": "Indicates if the data is the latest available."
+                },
+                "SEGMENT": {
+                  "type": "string",
+                  "description": "Segment."
+                },
+                "EV_CRITERIA": {
+                  "type": "string",
+                  "description": "Evaluation criteria."
                 },
                 "DATABASE_ID": {
                   "type": "string",
@@ -1120,26 +1169,32 @@
                 },
                 "SEX": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Sex of the subject."
                 },
                 "AGE": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Age group."
                 },
                 "URBANISATION": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Indicator of urbanisation."
                 },
                 "COMP_BREAKDOWN_1": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Composite breakdown dimension 1."
                 },
                 "COMP_BREAKDOWN_2": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Composite breakdown dimension 2."
                 },
                 "COMP_BREAKDOWN_3": {
                   "type": "string",
+                  "nullable": true,
                   "description": "Composite breakdown dimension 3."
                 },
                 "TIME_PERIOD": {
