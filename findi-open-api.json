@@ -739,6 +739,38 @@
         }
       }
     },
+    "/data360/portal/v1/adminmetadata": {
+      "post": {
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "getAdminMetadata",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminMetadata"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminMetadata"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminMetadata"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/data360/portal/v1/get_entities_by_id": {
       "post": {
         "tags": [
@@ -999,6 +1031,23 @@
       }
     },
     "schemas": {
+      "AdminMetadata": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "DataResponse": {
         "type": "object",
         "properties": {
