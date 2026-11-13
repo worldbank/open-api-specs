@@ -38,10 +38,11 @@ Data and metadata for FINDI datasets hosted on the Data360 platform.
 | POST | `/data360/portal/v1/dimensions` | Disaggregations for a given indicator |
 | GET | `/data360/portal/v1/hierarchy` | Hierarchy |
 | GET | `/data360/portal/v1/metadata` | Dataset or indicator metadata |
+| POST | `/data360/portal/v1/adminmetadata` | Admin metadata |
 | POST | `/data360/portal/v1/get_entities_by_id` | Entities by ID, with specified fields |
 | POST | `/data360/portal/v1/entities_by_economy_topic_tag` | Entities by economy, topic, and tags, with pagination |
 
-Still to document: the `/dimensions` request body (`DimensionDataDetails`), the `/hierarchy` parameters, and the response schemas of the non-data endpoints.
+Still to document: the `/dimensions` request body (`DimensionDataDetails`), the `/hierarchy` parameters, the purpose of `/adminmetadata` and its `ids` and `type` fields, and the response schemas of the non-data endpoints.
 
 ### Data360 internal API (draft)
 
