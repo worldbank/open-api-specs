@@ -8,6 +8,7 @@ OpenAPI specifications for the World Bank's [Data360](https://data360.worldbank.
 |------|-----|--------|---------|--------|
 | [`Data360 Open_API.json`](Data360%20Open_API.json) | Data360 API (public) | `https://data360api.worldbank.org` | 3.0.1 | **Published**: feeds the [Data360 API documentation page](https://data360.worldbank.org/en/api#/) |
 | [`findi-open-api.json`](findi-open-api.json) | FINDI API | `https://data360api.worldbank.org` | 3.0.1 | **Draft**: under review, not yet published |
+| [`wdi-open-api.json`](wdi-open-api.json) | WDI API | `https://data360api.worldbank.org` | 3.0.1 | **Draft**: under review, not yet published |
 | [`data360-int-open-api.json`](data360-int-open-api.json) | Data360 internal API | `https://datacatalogapiqa.worldbank.org` (QA) | 3.0.3 | **Draft**: internal use only |
 | [`archives/`](archives/) | Earlier versions of the Data360 specification | | | Historical reference, not maintained |
 
@@ -42,6 +43,26 @@ Data and metadata for FINDI datasets hosted on the Data360 platform.
 | POST | `/data360/portal/v1/entities_by_economy_topic_tag` | Entities by economy, topic, and tags, with pagination |
 
 Still to document: the `/dimensions` request body (`DimensionDataDetails`), the `/hierarchy` parameters, and the response schemas of the non-data endpoints.
+
+### WDI API (draft)
+
+Data and metadata for World Development Indicators (WDI) datasets hosted on the Data360 platform. The response examples are real WDI responses (total population of Angola, `WB_WDI_SP_POP_TOTL`).
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/data360/data` | Data based on provided filters |
+| GET | `/data360/portal/v1/data` | Indicator data based on provided filters |
+| POST | `/data360/portal/v1/temporaldata` | Indicator time series data |
+| POST | `/data360/portal/v1/dimensions` | Disaggregations for a given indicator |
+| GET | `/data360/portal/v1/hierarchy` | Hierarchy |
+| GET | `/data360/portal/v1/metadata` | Dataset or indicator metadata |
+| POST | `/data360/portal/v1/search` | Search Data360 |
+| POST | `/data360/portal/v1/get_entities_by_id` | Entities by ID, with specified fields |
+| POST | `/data360/portal/v1/entities_by_economy_topic_tag` | Entities by economy, topic, and tags, with pagination |
+
+Still to document: the `/dimensions` request body (`DimensionDataDetails`), the `/hierarchy` parameters, and the response schemas of the non-data endpoints.
+
+Known issue: `/data360/portal/v1/temporaldata` returns `404 Not Found` on `https://data360api.worldbank.org` (checked 23 November 2026), so the specification has no example response for it.
 
 ### Data360 internal API (draft)
 
